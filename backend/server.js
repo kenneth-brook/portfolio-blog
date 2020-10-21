@@ -3,20 +3,29 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
+const mongoose = require('mongoose');
 require('dotenv').config();
 
+const blogRoutes = require('./routes/blog');
+
 const app = express()
+
+//DataBase
+mongoose.connect(process.env.DATABASE, {useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false, useUnifiedTopology: true }).
+then(() => console.log('DB connected'));
 
 //middleware
 app.use(morgan('dev'))
 app.use(bodyParser.json())
 app.use(cookieParser())
-app.use(cors())
 
-//routs
-app.get('/api', (req, res) => {
-    res.json({time: Date().toString()})
-})
+//cors
+if (process.env.NODE_ENV == 'development') {
+    app.use(cors({ origin: `${process.env.CLIENT_URL}`}));
+}
+
+//routs middleware
+app.use('/api', blogRoutes);
 
 //port
 const port = process.env.PORT || 8000
