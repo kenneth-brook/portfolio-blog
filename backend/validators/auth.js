@@ -12,3 +12,12 @@ exports.userSignupValidator = [
         .isLength({min: 6})
         .withMessage('Password needs to be at least six caracters in length')
 ];
+
+exports.userSigninValidator = [
+    check('email')
+        .isEmail()
+        .withMessage('Valid email is required'),
+    check('password')
+        .isLength({min: 6})
+        .withMessage('Password needs to be at least six caracters in length')
+];
