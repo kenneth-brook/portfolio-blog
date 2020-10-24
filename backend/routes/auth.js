@@ -8,6 +8,13 @@ const { userSignupValidator, userSigninValidator } = require('../validators/auth
 
 router.post('/signup', userSignupValidator, runValidation, signup);
 router.post('/signin', userSigninValidator, runValidation, signin);
-router.signout('/signout', signout);
+router.get('/signout', signout);
+
+//test rout
+router.get('/secret', requireSignin, (req, res) => {
+    res.json({
+        message: 'You have access'
+    });
+});
 
 module.exports = router
