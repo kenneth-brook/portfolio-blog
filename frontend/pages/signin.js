@@ -4,7 +4,6 @@ const Signin = () => {
 	return (
 		<Layout>
 			<h2>Signin Page</h2>
-			<p>Remove this, when we have a chance</p>
 		</Layout>
 	);
 };
